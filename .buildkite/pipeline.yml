@@ -1,0 +1,15 @@
+steps:
+- label: 'build changed projects'
+  branches: "*"
+  # fetch-last-good-master-build makes sure we have the latest version of the tag locally (because Buildkite only fetches tags on first checkout)
+  command: make fetch-last-good-master-build && make build-changed
+  agents:
+    queue: 'my-queue:cicd'
+
+- wait
+
+- label: ':git: tag last-good-master-build'
+  command: make tag-last-good-master-build
+  branches: "master"
+  agents:
+    queue: 'my-queue:cicd'
