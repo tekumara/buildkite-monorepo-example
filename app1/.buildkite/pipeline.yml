@@ -1,0 +1,6 @@
+steps:
+  - label: 'build app2'
+    branches: "*"
+    command: build app1 here
+    agents:
+      queue: 'my-queue:cicd'

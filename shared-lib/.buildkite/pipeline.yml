@@ -1,0 +1,6 @@
+steps:
+  - label: 'build shared-lib'
+    branches: "*"
+    command: build shared-lib here
+    agents:
+      queue: 'my-queue:cicd'
