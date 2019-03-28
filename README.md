@@ -12,8 +12,6 @@ Currently adds around ~1 min to the total build time, roughly 30 secs to upload 
 
 ## Setup
 
-Before using this on a new repo, run `make tag-last-good-master-build` first to create the last good master build tag (and on first run expect to see the error `fatal: ambiguous argument 'last-good-master-build': unknown revision or path not in the working tree.`)
-
 Using the buildkite UI, you'll then need to manually create individual pipelines for each child pipeline you have. The upload step of the child pipeline will need to reference `pipeline.yml` in the appropriate `.buildkite` subdirectory, eg: for the `app1` pipeline
 ```
 buildkite-agent pipeline upload app1/.buildkite/pipeline.yml

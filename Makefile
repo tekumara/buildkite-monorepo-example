@@ -9,8 +9,8 @@ SHELL = /bin/bash -o pipefail
 targets := shared-lib app1 app2
 
 # list of directories with changes since last-good-master-build tag, or all directories if no last-good-master-build tag
-last-good-master-build-sha := $(shell git rev-list -n 1 last-good-master-build || echo no sha)
-changed-directories := $(shell (git diff last-good-master-build...HEAD --name-only 2> /dev/null || ls -d */) | cut -d'/' -f1 | uniq)
+last-good-master-build-sha := $(shell git rev-list -n 1 last-good-master-build 2>/dev/null || echo no sha)
+changed-directories := $(shell (git diff last-good-master-build...HEAD --name-only 2> /dev/null || ls -d */*) | cut -d'/' -f1 | uniq)
 changed-targets := $(filter $(changed-directories),$(targets))
 
 ## display this help message
@@ -23,7 +23,7 @@ list-targets:
 
 ## fetch last-good-master-build tag, makes sure we have the latest locally
 fetch-last-good-master-build:
-	git fetch origin +refs/tags/last-good-master-build:refs/tags/last-good-master-build
+	git fetch origin +refs/tags/last-good-master-build:refs/tags/last-good-master-build || true
 
 ## tag HEAD as last-good-master-build
 tag-last-good-master-build:
