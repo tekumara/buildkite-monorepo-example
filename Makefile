@@ -70,7 +70,7 @@ steps:
   branches: "*"
   async: false
   build:
-    message: "$(subst ','"'"',$(BUILDKITE_MESSAGE))"
+    message: "$(call escape_quotes,$(BUILDKITE_MESSAGE))"
     commit: "$(BUILDKITE_COMMIT)"
     branch: "$(BUILDKITE_BRANCH)"
 endef
@@ -79,3 +79,5 @@ define \n
 
 
 endef
+
+escape_quotes = $(subst ','"'"',$(subst ",\\",$1))
